@@ -1,1 +1,16 @@
-spring.application.name=oop-lab7
+spring:
+  application:
+    name: oop-lab7
+  datasource:
+    username: user
+    password: password
+    url: jdbc:postgresql://localhost:5432/lab7
+    driver-class-name: org.postgresql.Driver
+  sql:
+    init:
+      mode: always
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    defer-datasource-initialization: true

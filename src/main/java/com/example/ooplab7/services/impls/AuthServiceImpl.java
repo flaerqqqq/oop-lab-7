@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -40,6 +41,7 @@ public class AuthServiceImpl implements AuthService {
         String hashedPassword = passwordEncoder.encode(request.getPassword());
         request.setPassword(hashedPassword);
         User user = modelMapper.map(request, User.class);
+        user.setUuid(UUID.randomUUID().toString());
 
         user.setRoles(List.of(roleRepository.findByName(Role.RoleName.USER).get()));
 
