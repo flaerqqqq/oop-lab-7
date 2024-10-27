@@ -54,8 +54,11 @@ public class JwtServiceImpl implements JwtService {
 
     public List<GrantedAuthority> extractRoles(String token) {
         Claims claims = extractClaims(token);
-        return ((List<String>)claims.get("roles")).stream()
-                .map(SimpleGrantedAuthority::new)
+        List<Map<String, String>> roles = (List<Map<String, String>>) claims.get("roles");
+
+        // Map each role object to a SimpleGrantedAuthority
+        return roles.stream()
+                .map(roleMap -> new SimpleGrantedAuthority(roleMap.get("authority")))
                 .collect(Collectors.toList());
     }
 
